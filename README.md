@@ -26,7 +26,7 @@ To run this project locally, ensure you have the following installed:
 
 ### \## Setup Instructions
 
-##### **1. Clone the repository:**
+#### **1. Clone the repository:**
 
 &nbsp;  ```bash
 
