@@ -16,17 +16,17 @@ The system is designed with a production-first mindset, emphasizing modular arch
 
 To run this project locally, ensure you have the following installed:
 
-\* \*\*Python 3.13+\*\*
+**\* Python 3.13+**
 
-\* \*\*Git\*\*
+**\* Git**
 
-\* \*\*Docker\*\* (Required for the local WordPress testing environment)
+**\* Docker (Required for the local WordPress testing environment)**
 
 
 
 ### \## Setup Instructions
 
-##### 1\. \*\*Clone the repository:\*\*
+##### **1. Clone the repository:**
 
 &nbsp;  ```bash
 
