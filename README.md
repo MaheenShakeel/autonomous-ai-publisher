@@ -30,7 +30,7 @@ To run this project locally, ensure you have the following installed:
 
 
 
-##### 1\. Clone the repository:
+#### 1\. Clone the repository:
 
 ```bash
 
@@ -40,7 +40,7 @@ cd autonomous-ai-publisher
 
 
 
-##### 2\. Set up the virtual environment:
+#### 2\. Set up the virtual environment:
 
 
 
