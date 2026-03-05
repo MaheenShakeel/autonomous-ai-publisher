@@ -36,7 +36,7 @@ To run this project locally, ensure you have the following installed:
 
 git clone \[https://github.com/MaheenShakeel/autonomous-ai-publisher.git](https://github.com/MaheenShakeel/autonomous-ai-publisher.git)
 
-cd autonomous-ai-publisher
+cd autonomous-ai-publisher ```
 
 
 
@@ -50,7 +50,7 @@ python -m venv venv
 
 venv\\Scripts\\activate  # On Windows
 
-\# source venv/bin/activate  # On Mac/Linux
+\# source venv/bin/activate  # On Mac/Linux ```
 
 
 
@@ -60,7 +60,7 @@ venv\\Scripts\\activate  # On Windows
 
 ```bash
 
-pip install -r requirements.txt
+pip install -r requirements.txt ```
 
 
 
@@ -92,7 +92,7 @@ WP\_USERNAME: Your WordPress administrator username.
 
 
 
-WP\_APP\_PASSWORD: Your WordPress Application Password.
+WP\_APP\_PASSWORD: Your WordPress Application Password. ```
 
 
 
@@ -110,7 +110,7 @@ docker compose up -d
 
 Usage / Running the Pipeline
 
-Currently, the system is configured to test the WordPress REST API integration. It will dynamically fetch category IDs and publish a draft post to your local WordPress instance.
+Currently, the system is configured to test the WordPress REST API integration. It will dynamically fetch category IDs and publish a draft post to your local WordPress instance. ```
 
 
 
@@ -122,7 +122,7 @@ To run the publisher test:
 
 python -m publisher.test\_publish
 
-
+```
 
 
 
@@ -136,7 +136,7 @@ docker compose down
 
 Folder Structure
 
-
+```
 
 
 
