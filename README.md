@@ -44,7 +44,7 @@ cd autonomous-ai-publisher
 
 
 
-Bash
+```bash
 
 python -m venv venv
 
@@ -54,17 +54,17 @@ venv\\Scripts\\activate  # On Windows
 
 
 
-##### 3\. Install dependencies:
+#### 3\. Install dependencies:
 
 
 
-Bash
+```bash
 
 pip install -r requirements.txt
 
 
 
-##### 4\. Configure environment variables:
+#### 4\. Configure environment variables:
 
 
 
@@ -72,7 +72,7 @@ Copy the example environment file and populate it with your credentials:
 
 
 
-Bash
+```bash
 
 cp .env.example .env
 
@@ -96,7 +96,7 @@ WP\_APP\_PASSWORD: Your WordPress Application Password.
 
 
 
-##### 5\. Start the local infrastructure:
+#### 5\. Start the local infrastructure:
 
 
 
@@ -104,7 +104,7 @@ Use Docker to spin up the local WordPress and database containers.
 
 
 
-Bash
+```bash
 
 docker compose up -d
 
@@ -118,7 +118,7 @@ To run the publisher test:
 
 
 
-Bash
+```bash
 
 python -m publisher.test\_publish
 
@@ -130,7 +130,7 @@ python -m publisher.test\_publish
 
 
 
-Bash
+```bash
 
 docker compose down
 
