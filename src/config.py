@@ -5,8 +5,8 @@ load_dotenv()
 
 def get_config():
     config = {
-        "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
-        "OPENAI_MODEL": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        "GEMINI_API_KEY": os.getenv("GEMINI_API_KEY"),
+        "GEMINI_MODEL": os.getenv("GEMINI_MODEL", "gemini-2.0-flash"),
         "WORDPRESS_BASE_URL": os.getenv("WORDPRESS_BASE_URL"),
         "WORDPRESS_USERNAME": os.getenv("WORDPRESS_USERNAME"),
         "WORDPRESS_APP_PASSWORD": os.getenv("WORDPRESS_APP_PASSWORD"),
@@ -16,7 +16,7 @@ def get_config():
     }
 
     # Validate required fields
-    required = ["OPENAI_API_KEY", "WORDPRESS_BASE_URL", "WORDPRESS_USERNAME"]
+    required = ["GEMINI_API_KEY", "WORDPRESS_BASE_URL", "WORDPRESS_USERNAME"]
     for key in required:
         if not config[key]:
             raise ValueError(f"Missing required environment variable: {key}")
