@@ -157,14 +157,17 @@ python -c "from src.wordpress_client import test_connection; test_connection()"
 ---
 
 ## Folder Structure
+
+```
 autonomous-ai-publisher/
-├── agents/          # AI agent workflows (Topic Planner, Writer, Editor, SEO)
-├── data/            # Runtime data (posted_articles.json for duplicate tracking)
-├── infra/           # Docker Compose configuration
-├── prompts/         # Externalized system prompts for AI agents
-├── publisher/       # Week 2 WordPress REST API integration
-├── scheduler/       # Cron/APScheduler execution logic
-├── src/             # Week 3 core pipeline modules
+│
+├── agents/                    # AI agent workflows (Topic Planner, Writer, Editor, SEO)
+├── data/                      # Runtime data (posted_articles.json for duplicate tracking)
+├── infra/                     # Docker Compose configuration
+├── prompts/                   # Externalized system prompts for AI agents
+├── publisher/                 # Week 2 WordPress REST API integration
+├── scheduler/                 # Cron/APScheduler execution logic
+├── src/                       # Week 3 core pipeline modules
 │   ├── article_generator.py   # Calls Gemini AI to generate articles
 │   ├── config.py              # Loads and validates environment variables
 │   ├── deduplicator.py        # Prevents publishing duplicate topics
@@ -172,21 +175,25 @@ autonomous-ai-publisher/
 │   ├── validator.py           # Checks article quality before publishing
 │   ├── wordpress_client.py    # WordPress REST API client
 │   └── tests/                 # Unit tests for all modules
-├── storage/         # SQLite database interactions
-├── utils/           # Shared utilities including structured logging
-├── tests/           # Top-level pytest test suite
-├── main.py          # Pipeline entry point
-├── .env.example     # Example environment variable file
-└── README.md        # This file
+├── storage/                   # SQLite database interactions
+├── utils/                     # Shared utilities including structured logging
+├── tests/                     # Top-level pytest test suite
+├── main.py                    # Pipeline entry point
+├── .env.example               # Example environment variable file
+└── README.md                  # This file
+```
 
 ---
 
 ## How It Works
+
+```
 main.py
-│
-├── 1. Load config (.env)
-├── 2. Check for duplicate topic
-├── 3. Generate article (Gemini AI)
-├── 4. Validate article quality
-├── 5. Publish to WordPress (or simulate if DRY_RUN=true)
-└── 6. Log results + record published topic
+   │
+   ├── 1. Load config (.env)
+   ├── 2. Check for duplicate topic
+   ├── 3. Generate article via Gemini AI
+   ├── 4. Validate article quality
+   ├── 5. Publish to WordPress  ──(or)──  Simulate if DRY_RUN=true
+   └── 6. Log results + record published topic
+```
