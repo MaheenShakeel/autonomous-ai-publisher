@@ -29,17 +29,22 @@ def generate_article(topic: str) -> dict:
     return normalize_article(article)
 
 
+import re
+
 def normalize_article(article: dict) -> dict:
+    # Clean whitespace
     article["title"] = article.get("title", "").strip()
     article["content"] = article.get("content", "").strip()
     article["excerpt"] = article.get("excerpt", "").strip()
 
+    # Generate slug if missing
     if not article.get("slug"):
         slug = article["title"].lower()
         slug = re.sub(r"[^a-z0-9\s-]", "", slug)
         slug = re.sub(r"\s+", "-", slug).strip("-")
         article["slug"] = slug
 
+    # Truncate excerpt if too long
     if len(article["excerpt"]) > 160:
         article["excerpt"] = article["excerpt"][:157] + "..."
 
