@@ -6,7 +6,7 @@ load_dotenv()
 def get_config():
     config = {
         "GEMINI_API_KEY": os.getenv("GEMINI_API_KEY"),
-        "GEMINI_MODEL": os.getenv("GEMINI_MODEL", "gemini-2.0-flash"),
+        "GEMINI_MODEL": os.getenv("GEMINI_MODEL", "gemini-flash-latest"),
         "WORDPRESS_BASE_URL": os.getenv("WORDPRESS_BASE_URL"),
         "WORDPRESS_USERNAME": os.getenv("WORDPRESS_USERNAME"),
         "WORDPRESS_APP_PASSWORD": os.getenv("WORDPRESS_APP_PASSWORD"),

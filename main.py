@@ -10,13 +10,13 @@ logger = get_logger("MAIN")
 def main():
     logger.info("System initializing...")
 
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY")
 
     if api_key:
         masked_key = api_key[:4] + "****"
-        logger.info(f"OPENAI_API_KEY loaded: {masked_key}")
+        logger.info(f"GEMINI_API_KEY loaded: {masked_key}")
     else:
-        logger.error("OPENAI_API_KEY not found!")
+        logger.error("GEMINI_API_KEY not found!")
 
     topic = "Sample Topic: Reducing AWS EC2 Costs"
     logger.info(f"Selected topic: {topic}")
