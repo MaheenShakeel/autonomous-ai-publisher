@@ -1,8 +1,8 @@
-# Autonomous AI Article Agent
+## Autonomous AI Article Agent
 
 ## Project Overview
 
-This project is an autonomous AI system designed to operate as a scheduled WordPress publisher. The pipeline systematically selects domain-specific topics focused on **Cloud and AI cost optimization for SMBs**. It uses an AI agent workflow to generate high-quality, structured articles, applies quality checks and SEO optimization, and automatically publishes them to a WordPress website.
+This project is an autonomous AI system designed to operate as a scheduled WordPress publisher. The pipeline systematically selects domain-specific topics focused on **Cloud and AI cost optimization for SMBs**. It uses **Google Gemini AI** to generate high-quality, structured articles, applies quality checks and SEO optimization, and automatically publishes them to a WordPress website.
 
 The system is designed with a production-first mindset, emphasizing modular architecture, robust error handling, and comprehensive logging for operational visibility.
 
@@ -14,7 +14,8 @@ To run this project locally, ensure you have the following installed:
 
 - **Python 3.13+**
 - **Git**
-- **Docker** (required for the local WordPress testing environment)
+- **Docker Desktop** (required for the local WordPress testing environment)
+- **A Google AI Studio account** (free) — to get your Gemini API key
 
 ---
 
@@ -41,7 +42,15 @@ venv\Scripts\activate        # On Windows
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 4. Get your free Gemini API key
+
+1. Go to **aistudio.google.com**
+2. Sign in with your Google account
+3. Click **"Get API key"** in the left sidebar
+4. Click **"Create API key in new project"**
+5. Copy the key (starts with `AIza...`)
+
+### 5. Configure environment variables
 
 Copy the example file and fill in your credentials:
 
@@ -52,56 +61,57 @@ cp .env.example .env
 Your `.env` file must include:
 
 ```env
-# Gemini AI
-GEMINI_API_KEY=your-gemini-api-key
+# Google Gemini AI (free via AI Studio)
+GEMINI_API_KEY=your-gemini-api-key-here
 GEMINI_MODEL=models/gemini-2.0-flash
 
-# WordPress (old keys kept for Week 2 compatibility)
-WP_URL=http://localhost:8080
-WP_USERNAME=publisher-bot
-WP_APP_PASSWORD=your-app-password
-
-# WordPress (Week 3)
+# WordPress
 WORDPRESS_BASE_URL=http://localhost:8080
 WORDPRESS_USERNAME=publisher-bot
-WORDPRESS_APP_PASSWORD=your-app-password
+WORDPRESS_APP_PASSWORD=your-app-password-here
 WORDPRESS_POST_STATUS=draft
 
 # Pipeline settings
 DEFAULT_TOPIC=Cloud cost optimization for small businesses
-DRY_RUN=false
+DRY_RUN=true
 ```
 
-### 5. Start the local WordPress instance
+> ⚠️ Never commit your `.env` file to Git. It is already listed in `.gitignore`.
+
+### 6. Start the local WordPress instance
+
+Make sure Docker Desktop is open and running, then:
 
 ```bash
 docker compose -f infra/docker-compose.yml up -d
 ```
 
-Then visit `http://localhost:8080` in your browser to confirm WordPress is running.
+Visit `http://localhost:8080` in your browser to confirm WordPress is running.
 
 ---
 
 ## Running the Pipeline
 
-### Full pipeline (generates article and publishes to WordPress)
+### Dry run (recommended for first test — generates article but does NOT publish)
+
+Make sure `DRY_RUN=true` in your `.env`, then:
 
 ```bash
 python main.py
 ```
 
-### Dry run (generates and validates article but does NOT publish)
+### Full run (generates article and publishes to WordPress)
 
-Set `DRY_RUN=true` in your `.env` file, then run:
+Set `DRY_RUN=false` in your `.env`, then:
 
 ```bash
 python main.py
 ```
 
-### Test WordPress connection only (Week 2 test)
+### Test WordPress connection only
 
 ```bash
-python -m publisher.test_publish
+python -c "from src.wordpress_client import test_connection; test_connection()"
 ```
 
 ### Shut down Docker when done
@@ -126,7 +136,7 @@ pytest src/tests/
 # Test config loads correctly
 python -c "from src.config import get_config; c = get_config(); print('Config OK')"
 
-# Test article generation
+# Test article generation via Gemini
 python -c "from src.article_generator import generate_article; a = generate_article('Cloud cost optimization'); print(a['title'])"
 
 # Test article validation
@@ -134,9 +144,36 @@ python -c "from src.validator import validate_article; print(validate_article({'
 
 # Test duplicate detection
 python -c "from src.deduplicator import is_duplicate; print('Duplicate?', is_duplicate('test topic'))"
+```
 
-# Test WordPress connection
-python -c "from src.wordpress_client import test_connection; test_connection()"
+---
+
+## Scheduler Setup
+
+### Windows Task Scheduler
+
+1. Open **Task Scheduler** (search in Start menu)
+2. Click **Create Basic Task**
+3. Fill in the fields:
+
+| Field | Value |
+|---|---|
+| Name | AI Article Publisher |
+| Trigger | Daily (or your preferred schedule) |
+| Program | `C:\Users\dell\Desktop\autonomous-ai-publisher\venv\Scripts\python.exe` |
+| Arguments | `main.py` |
+| Start In | `C:\Users\dell\Desktop\autonomous-ai-publisher` |
+
+### Linux / Mac (Cron)
+
+```bash
+crontab -e
+```
+
+Add this line to run every 2 hours:
+
+```
+0 */2 * * * cd /path/to/autonomous-ai-publisher && venv/bin/python main.py >> logs/cron.log 2>&1
 ```
 
 ---
@@ -192,8 +229,18 @@ main.py
    │
    ├── 1. Load config (.env)
    ├── 2. Check for duplicate topic
-   ├── 3. Generate article via Gemini AI
+   ├── 3. Generate article via Google Gemini AI
    ├── 4. Validate article quality
    ├── 5. Publish to WordPress  ──(or)──  Simulate if DRY_RUN=true
    └── 6. Log results + record published topic
 ```
+
+---
+
+## Weekly Progress
+
+| Week | Focus | Status |
+|---|---|---|
+| Week 1 | Project setup, logging, environment | ✅ Complete |
+| Week 2 | Docker, WordPress API integration | ✅ Complete |
+| Week 3 | Gemini AI article generation, full pipeline, scheduler | ✅ Complete |
